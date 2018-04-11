@@ -40,7 +40,7 @@ type="function"实现对${value}对象预处理，在再次使用${对象}调用
         </result>
 
         <bean id="小明买到的冰淇淋的价格" type = "object" value="${小明去买冰淇淋}"/>
-
+        
         <if evl = "#[${小明买到的冰淇淋的价格}>5]">
 
             <true>
