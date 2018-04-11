@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RuleInfos>
+    <import>
+        <class>
+            java.lang.System;
+            java.lang.StringBuffer;
+            java.text.SimpleDateFormat;
+            java.util.Date;
+            com.XmlScript.ruleutil.RulesLoad;
+            test.Test
+        </class>
+    </import>
+    <bean id="日期格式化" type = "method" value = "${new SimpleDateFormat(yyyy-MM-dd HH:mm:ss).format}"/>
+    <bean id="打印" type = "method" value="${System.out.println}"/>
+    <bean id="执行" type = "method" value="${RulesLoad.execute}"/>
+    <bean id="小明去买冰淇淋" type="function" value="${new Test().get()}"/>
+    <rules id="test">
+        <result type="execute">
+            <value>
+                ${打印(小明开始去买冰淇淋，时间：${日期格式化(${new Date()})})}
+                #[
+                    importClass(java.lang.System)
+                    var prise=${小明去买冰淇淋};
+                    if(prise>5){
+                        System.out.println("小明买的贵了！！！价格："+prise+"元");
+                    }else{
+                        System.out.println("刚刚好，还不错！价格："+prise+"元");
+                    }
+                ]
+                ${打印(小明买完冰淇淋了，时间：${日期格式化(${new Date()})})}
+            </value>
+        </result>
+    </rules>
+
+    <rules id="test2">
+        <result type="execute">
+            <value>
+                ${打印(小明开始去买冰淇淋，时间：${日期格式化(${new Date()})})}
+            </value>
+        </result>
+        <bean id="小明买到的冰淇淋的价格" type = "object" value="${小明去买冰淇淋}"/>
+        <if evl = "#[${小明买到的冰淇淋的价格}>5]">
+            <true>
+                <result type="execute">
+                    <value>
+                        ${打印(小明买的贵了！！！价格：${小明买到的冰淇淋的价格}元)}
+                    </value>
+                </result>
+            </true>
+            <false>
+                <result type="execute">
+                    <value>
+                        ${打印(刚刚好，还不错！价格：${小明买到的冰淇淋的价格}元)}
+                    </value>
+                </result>
+            </false>
+        </if>
+        <result type="execute">
+            <value>
+                ${打印(小明买完冰淇淋了，时间：${日期格式化(${new Date()})})}
+            </value>
+        </result>
+    </rules>
+</RuleInfos>

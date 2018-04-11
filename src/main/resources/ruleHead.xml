@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RuleInfos> 
+	<import>
+		<class>
+			java.lang.System;
+			java.text.SimpleDateFormat;
+			java.util.Date;
+		</class>
+	</import>
+	<bean id="打印" type = "method" value="${System.out.println}"/>
+	<bean id="执行" type = "method" value="${RulesLoad.execute}"/>
+	<bean id="日期格式化" type = "method" value = "${new SimpleDateFormat(yyyy-MM-dd HH:mm:SS).format}"/>
+	<bean id = "执行查询SQL" type = "method" value = "${enterpriseQueryResultService.getHibernate().find}"/>
+	<bean id = "将正文信息入库" type = "function" value = "${enterpriseQueryResultService.toGetReportHeaderResult(${requestid})}"/>
+	<bean id = "将财务报表信息入库" type = "method" value = "${enterpriseQueryResultService.toGetFinancialInfoResult}"/>
+	<bean id = "将贷款信息等入库" type = "method" value = "${enterpriseQueryResultService.toGetAttachMentLoanInfoResult}"/>
+	<bean id = "将已结清正常类票据贴现信息入库" type = "method" value = "${enterpriseQueryResultService.toGetAttachMentBillDiscountResult}"/>
+	<bean id = "将已结清正常类银行承兑汇票信息入库" type = "method" value = "${enterpriseQueryResultService.toGetAttachMentBankAcceptanceResult}"/>
+</RuleInfos>

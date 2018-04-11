@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RuleInfos>
+	<import class="com.picc.credit.domain.query.service.spring.test"/>
+	<import class="com.picc.credit.domain.query.service.spring.Demo01"/>
+	<!-- 	<import class="java.lang.System"/>
+        <import class="java.lang.StringBuffer"/>
+        <import class="java.text.SimpleDateFormat"/>
+        <import class="java.util.Date"/>
+        <import class="com.XmlScript.ruleutil.RulesLoad"/> -->
+	<import>
+		<class>
+			java.lang.System;
+			java.lang.StringBuffer;
+			java.text.SimpleDateFormat;
+			java.util.Date;
+			com.XmlScript.ruleutil.RulesLoad;
+		</class>
+	</import>
+	<!-- 	<include file="rule-head.xml"/> -->
+	<!-- 	<bean id="个数" type="function" value="${new Demo01().getCount()}"/> -->
+	<!-- <bean id="fff" type="string" value="${test.getCount()}"/> -->
+	<!-- <bean id="测试" type="object" value="${new test()}"/> -->
+	<bean id="demo" type = "object" value="${new Demo01()}"/>
+	<bean id="打印" type = "method" value="${System.out.println}"/>
+	<bean id="执行" type = "method" value="${RulesLoad.execute}"/>
+	<bean id ="simpleDateFormate" type = "object" value ="new SimpleDateFormat(yyyy-MM-dd)"/>
+	<bean id="日期格式化" type = "method" value = "${new SimpleDateFormat(yyyy-MM-dd).format}"/>
+	<bean id = "计数" type = "int" value ="0"/>
+	<bean id = "记得" type = "object" value ="${demo.getRes()}"/>
+	<rules id = "personCredit">
+		<bean id="out" type = "object" value = "${demo.getNext()}"/>
+		<!-- <result type="execute" value="$"/>  -->
+		<!-- <result type="execute" value="${System.out.println(${new SimpleDateFormat(yyyy-MM-dd).format(${new Date()})})}"/>  -->
+		<result type="execute" >
+			<!-- <value>
+				#[45566+2]记上放假的放假${打印(${demo.getint()}fdhasjhjghdaksfjdfsaf#[${demo.getint(#[
+				function aa(){
+					var a = new Array(1,2,3);
+					return a;
+				}
+				var bb=aa();
+				],455)}+1])}
+			</value> -->
+			<value>
+				<!-- ${打印(#[var a = new Array(1,2); true])} -->
+				${打印(${记得${记得}dsfasfds}+1)}
+				${打印(
+					#[
+						importClass(com.picc.credit.domain.query.service.spring.Demo01)
+						importClass(java.lang.System)
+						function a(){
+							var a = new Demo01().getint();
+							var ss = ${计数}+a;
+							System.out.println('fhdjsf');
+							return ss;
+						}
+						a();
+					]
+				)}
+			</value>
+		</result>
+		<if evl="#[${记得}!=${null}]">
+			<true>
+				<result type="execute" value="${打印(不是空啊)}" />
+			</true>
+			<false>
+				<result type="execute" value="${打印(是空啊)}" />
+			</false>
+		</if>
+		<for child="aaa"  value="#[new Array(1,2)]">
+			<result type="execute" value="${打印(计数========${计数})}"/>
+			<bean id = "计数" type = "object" value ="#[${计数}+1]"/>
+			<bean id ="aaa" type="object"  value ="${aaa}"/>
+			<if evl="#[${aaa}>1]">
+				<true>
+					<result type = "execute">
+						<value>
+							${执行(
+								#[
+									function a(){
+										<!-- ${执行(${out})};
+										${打印(成功${日期格式化(${new Date()})})}; -->
+										var ss = '${打印(\'\'成功12323${日期格式化(${new Date()})})}'
+										return ss;
+									}
+									a();
+								]
+							)}
+						</value>
+					</result>
+					<result type = "execute">
+						<value>
+							${out}
+						</value>
+					</result>
+				</true>
+				<false>
+					<result type = "execute">
+						<value>
+							${打印(失败${日期格式化(${new Date()})})}
+							${打印(#[
+									importClass(com.picc.credit.domain.query.service.spring.Demo01)
+									importClass(java.lang.System)
+									function a(){
+										var a = new Demo01().getint();
+										var ss = ${计数}+a;
+										System.out.println('fhdjsf');
+										return ss;
+									}
+									a();
+								]
+							)}
+						</value>
+					</result>
+				</false>
+			</if>
+		</for>
+		<!-- <result type="execute" value="${System.out.println(${demo.getList().get(1)})}"/> -->
+		<!-- <for child="aaa"  value="${demo.getArray()}">
+		<result type="execute" value="${System.out.println(${aaa})}"/>
+			<if evl="#[${aaa}!=${null}]">
+				<true>
+					<for child="sss"  value="${demo.getList()}">
+						<result type="execute" value="${System.out.println(${sss})}"/>
+						<bean id="www"  type = "object"  value="${sss}"/>
+					</for>
+				</true>
+			</if>
+		</for> -->
+		<!-- <result type="execute" value="${System.out.println(${www})}"/> -->
+		<!-- <if evl="2>1">
+			<true>
+				<result type="execute" value="${System.out.println(${fff})}"/>
+				<result type="execute" value="${System.out.println(${个数})}"/>
+				<result type="execute" value="${test.out(${test.getCount()})}"/>
+				<result type="execute" value="${System.out.println(${test.getCount(${test.getCount(dfsfs,dddd)},${test.getCount(dfsfsd,ddddww)},009kk)})}"/>
+				<result type="dispatcher" value="${System.out.println(${new test(${new test(dfsfds,sdd).getCount()},${new test(dlloiuisfds,s0000d).getCount()},hdsjufahdjsanft).getCount()})}"/>
+				<result type="execute" value="${System.out.print(${RulesLoad.imports.get(1)})}"/>
+			</true>
+		</if> -->
+		<!-- <if evl="${getcc.getper()}<1">
+			<true><result type="dispatcher" value="/index.jsp"/></true>
+		</if>
+		<if evl="${getcc.getper(${ffds})}>${}">
+			<result type="redirect"/>
+		</if>
+		<listIf childId="child" evl="${child.getname}==3">
+			<true><result type="void" value="${}"/><break/></true>
+		</listIf> -->
+	</rules>
+	<rules id = "xxx">
+		<if evl="${new Demo01().getChoose()}">
+			<true>
+				<result type="void" value="${System.out.println(f)}"/>
+				<result type="void" value="${System.out.println(21313)}"/>
+				<result type="void" value="${System.out.println(uuuud)}"/>
+				<result type="void" value="${System.out.println(oooppe)}"/>
+				<result type="void" value="${test.out(${test.getCount()})}"/>
+			</true>
+		</if>
+	</rules>
+	<rules id = "yyy">
+		<result type="execute" value="${System.out.println(${new StringBuffer(fdhjafndsfdd).append(6736427).append(true).append(fdajsfkjdskfj).toString()})}"/>
+	</rules>
+	<rules>
+		<result type="execute">
+			<value>
+				${}
+			</value>
+		</result>
+	</rules>
+</RuleInfos>
